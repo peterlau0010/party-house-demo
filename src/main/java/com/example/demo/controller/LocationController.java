@@ -18,20 +18,20 @@ public class LocationController {
 	private LocationRepository locationRepository;
 
 	@RequestMapping(value = "/readLocation", method = RequestMethod.GET)
-	public List<Location> retrieveAllLocations(@RequestParam(value = "LocationID",required = false) Long LocationID,
+	public List<Location> retrieveAllLocations(@RequestParam(value = "LocationID", required = false) Long LocationID,
 			@RequestParam(value = "LocationChinese", required = false) String LocationChinese,
-			@RequestParam(value = "LocationEnglish",required = false) String LocationEnglish) {
-		
-		if(LocationID != null) {
-			return locationRepository.findByLocationID(LocationID);
-		}else if (LocationChinese!= null) {
+			@RequestParam(value = "LocationEnglish", required = false) String LocationEnglish) {
+
+		if (LocationID != null) {
+			return locationRepository.findByLocationId(LocationID);
+		} else if (LocationChinese != null) {
 			return locationRepository.findByLocationChinese(LocationChinese);
-		}else if (LocationEnglish!=null) {
+		} else if (LocationEnglish != null) {
 			return locationRepository.findByLocationEnglish(LocationEnglish);
-		}else {
-			return (List<Location>) locationRepository.findAll();
 		}
-		
+
+		return (List<Location>) locationRepository.findAll();
+
 	}
 
 }

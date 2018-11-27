@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -8,7 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.entity.Location;
+import com.example.demo.entity.PartyHouse;
 import com.example.demo.repository.LocationRepository;
+import com.example.demo.repository.PartyHouseRepository;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -26,35 +30,34 @@ public class PartyHouseDemoApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(LocationRepository repository) {
+	public CommandLineRunner demo(LocationRepository locationRepository, PartyHouseRepository partyHouseRepository) {
 		return (args) -> {
 			
 			// save a couple of Location
-			repository.save(new Location("荃灣", "Tsuen Wan"));
-			repository.save(new Location("青衣", "Tsing Yi"));
+			Location tsingyi = new Location("青衣", "Tsing Yi");
+			Location tsuenwan = new Location("荃灣", "Tsuen Wan");
+			locationRepository.save(tsuenwan);
+			locationRepository.save(tsingyi);
+			partyHouseRepository.save(new PartyHouse("派對屋","PartyHouse","長康","Cheung Hong","9:00~12:00",tsingyi));
+			partyHouseRepository.save(new PartyHouse("派對屋","PartyHouse","長康","Cheung Hong","9:00~12:00",tsingyi));
+			partyHouseRepository.save(new PartyHouse("派對屋","PartyHouse","綠楊","Green Yeung","9:00~12:00",tsuenwan));
+			partyHouseRepository.save(new PartyHouse("派對屋","PartyHouse","綠楊","Green Yeung","9:00~12:00",tsuenwan));
+			
+			
 
-			// fetch all customers
-			log.info("Customers found with findAll():");
+			// fetch all Location
+			log.info("Location found with findAll():");
 			log.info("-------------------------------");
-			for (Location location : repository.findAll()) {
+			for (Location location : locationRepository.findAll()) {
 				log.info(location.toString());
 			}
-			log.info("");
+			
+			log.info("PartyHouse found with findAll():");
+			log.info("-------------------------------");
+			for (PartyHouse partyHouse : partyHouseRepository.findAll()) {
+				log.info(partyHouse.toString());
+			}
 
-			repository.findById(1L)
-				.ifPresent(location -> {
-					log.info("Location found with findById(1L):");
-					log.info("--------------------------------");
-					log.info(location.toString());
-					log.info("");
-				});
-
-			log.info("Location found with findByLocationChinese('荃灣'):");
-			log.info("--------------------------------------------");
-			repository.findByLocationChinese("荃灣").forEach(location -> {
-				log.info(location.toString());
-			});
-			log.info("");
 		};
 	}
 }

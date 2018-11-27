@@ -8,7 +8,7 @@ import com.example.demo.entity.Location;
 
 public interface LocationRepository extends CrudRepository<Location, Long> {
 
-    List<Location> findByLocationID(Long LocationID);
+    List<Location> findByLocationId(Long LocationID);
     
     List<Location> findByLocationChinese(String LocationChinese);
     

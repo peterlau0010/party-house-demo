@@ -1,23 +1,32 @@
 package com.example.demo.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Location {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long locationID;
+	private Long locationId;
 	private String locationChinese;
     private String locationEnglish;
-	public Long getLocationID() {
-		return locationID;
+    
+    @OneToMany(mappedBy="location",fetch = FetchType.EAGER,cascade=CascadeType.MERGE)
+    private Set<PartyHouse> partyHouse;
+    
+	public Long getLocationId() {
+		return locationId;
 	}
-	public void setLocationID(Long locationID) {
-		this.locationID = locationID;
+	public void setLocationId(Long locationId) {
+		this.locationId = locationId;
 	}
 	public String getLocationChinese() {
 		return locationChinese;
@@ -31,9 +40,9 @@ public class Location {
 	public void setLocationEnglish(String locationEnglish) {
 		this.locationEnglish = locationEnglish;
 	}
-	public Location(Long locationID, String locationChinese, String locationEnglish) {
+	public Location(Long locationId, String locationChinese, String locationEnglish) {
 		super();
-		this.locationID = locationID;
+		this.locationId = locationId;
 		this.locationChinese = locationChinese;
 		this.locationEnglish = locationEnglish;
 	}
@@ -44,7 +53,7 @@ public class Location {
 	}
 	@Override
 	public String toString() {
-		return "Location [locationID=" + locationID + ", locationChinese=" + locationChinese + ", locationEnglish="
+		return "Location [locationId=" + locationId + ", locationChinese=" + locationChinese + ", locationEnglish="
 				+ locationEnglish + "]";
 	}
 	public Location() {
