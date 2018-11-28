@@ -24,11 +24,11 @@ public class PartyHouseController {
 			@RequestParam(value = "LocationID", required = false) Long locationID) {
 
 		if (partyHouseNameChinese != null) {
-			return partyHouseRepository.findByPartyHouseNameChinese(partyHouseNameChinese);
+			return partyHouseRepository.findByPartyHouseNameChineseContaining(partyHouseNameChinese);
 		} else if (partyHouseNameEnglish != null) {
-			return partyHouseRepository.findByPartyHouseNameEnglish(partyHouseNameEnglish);
+			return partyHouseRepository.findByPartyHouseNameEnglishContaining(partyHouseNameEnglish);
 		} else if (locationID != null) {
-			return partyHouseRepository.findByLocation(locationID);
+			return partyHouseRepository.findByLocation_locationId(locationID);
 		}
 		return (List<PartyHouse>) partyHouseRepository.findAll();
 

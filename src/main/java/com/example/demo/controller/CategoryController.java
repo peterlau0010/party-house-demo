@@ -29,7 +29,7 @@ public class CategoryController {
 		} else if (CategoryEnglish != null) {
 			return categoryRepository.findByCategoryEnglish(CategoryEnglish);
 		}
-
+		
 		return (List<Category>) categoryRepository.findAll();
 	}
 

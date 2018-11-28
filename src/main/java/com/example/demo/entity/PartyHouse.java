@@ -10,27 +10,48 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class PartyHouse {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long partyHouseId;
 	private String partyHouseNameChinese;
-    private String partyHouseNameEnglish;
-    private String addressChinese;
-    private String addressEnglish;
-    private String openingHour;
-        
-    @ManyToMany(mappedBy = "partyHouse")
-    private List<Category> category = new ArrayList<>();
-    
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.MERGE)
-    @JoinColumn(name="location_id", nullable=false,referencedColumnName="locationId" )
-    private Location location;
+	private String partyHouseNameEnglish;
+	private String addressChinese;
+	private String addressEnglish;
+	private String openingHour;
+
+	@JsonBackReference
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(name = "PartyHouseCategory", joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "partyHouseId"), inverseJoinColumns = @JoinColumn(name = "party_house_id", referencedColumnName = "categoryId"))
+	private List<Category> category = new ArrayList<>();
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "location_id", nullable = false, referencedColumnName = "locationId")
+	private Location location;
+
+	public Long getPartyHouseId() {
+		return partyHouseId;
+	}
+
+	public void setPartyHouseId(Long partyHouseId) {
+		this.partyHouseId = partyHouseId;
+	}
+
+	public List<Category> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
+	}
 
 	public Long getPartyHouseID() {
 		return partyHouseId;
@@ -88,8 +109,25 @@ public class PartyHouse {
 		this.location = location;
 	}
 
+	public PartyHouse() {
+		super();
+	}
+
+	public PartyHouse(String partyHouseNameChinese, String partyHouseNameEnglish, String addressChinese,
+			String addressEnglish, String openingHour, List<Category> category, Location location) {
+		super();
+		this.partyHouseNameChinese = partyHouseNameChinese;
+		this.partyHouseNameEnglish = partyHouseNameEnglish;
+		this.addressChinese = addressChinese;
+		this.addressEnglish = addressEnglish;
+		this.openingHour = openingHour;
+		this.category = category;
+		this.location = location;
+	}
+
 	public PartyHouse(Long partyHouseId, String partyHouseNameChinese, String partyHouseNameEnglish,
-			String addressChinese, String addressEnglish, String openingHour, Location location) {
+			String addressChinese, String addressEnglish, String openingHour, List<Category> category,
+			Location location) {
 		super();
 		this.partyHouseId = partyHouseId;
 		this.partyHouseNameChinese = partyHouseNameChinese;
@@ -97,21 +135,7 @@ public class PartyHouse {
 		this.addressChinese = addressChinese;
 		this.addressEnglish = addressEnglish;
 		this.openingHour = openingHour;
-		this.location = location;
-	}
-
-	public PartyHouse() {
-		super();
-	}
-
-	public PartyHouse(String partyHouseNameChinese, String partyHouseNameEnglish, String addressChinese,
-			String addressEnglish, String openingHour, Location location) {
-		super();
-		this.partyHouseNameChinese = partyHouseNameChinese;
-		this.partyHouseNameEnglish = partyHouseNameEnglish;
-		this.addressChinese = addressChinese;
-		this.addressEnglish = addressEnglish;
-		this.openingHour = openingHour;
+		this.category = category;
 		this.location = location;
 	}
 
@@ -119,12 +143,10 @@ public class PartyHouse {
 	public String toString() {
 		return "PartyHouse [partyHouseId=" + partyHouseId + ", partyHouseNameChinese=" + partyHouseNameChinese
 				+ ", partyHouseNameEnglish=" + partyHouseNameEnglish + ", addressChinese=" + addressChinese
-				+ ", addressEnglish=" + addressEnglish + ", openingHour=" + openingHour + ", location=" + location
-				+ "]";
-	}    
-    
-     
-    
-    
+				+ ", addressEnglish=" + addressEnglish + ", openingHour=" + openingHour + ", category=" + category
+				+ ", location=" + location + "]";
+	}
+
+
 
 }
