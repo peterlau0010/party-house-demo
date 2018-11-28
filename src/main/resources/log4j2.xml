@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" name="MyApp" packages="">
 	<Appenders>
-		<File name="MyFile" fileName="logs/app.log">
-			<PatternLayout>
-				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-			</PatternLayout>
-		</File>
+		<RollingFile name="RollingFileInfo"
+			fileName="logs/info.log"
+			filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="info" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="RollingFileWarn"
+			fileName="logs/warn.log"
+			filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+			<ThresholdFilter level="warn" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Root level="info">
-			<AppenderRef ref="MyFile" />
+		<Root level="ALL">
+			<AppenderRef ref="RollingFileInfo" />
+			<AppenderRef ref="RollingFileWarn" />
 		</Root>
 	</Loggers>
 </Configuration>
