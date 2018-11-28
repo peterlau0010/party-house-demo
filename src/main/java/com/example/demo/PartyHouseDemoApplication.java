@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +12,6 @@ import com.example.demo.entity.Location;
 import com.example.demo.entity.PartyHouse;
 import com.example.demo.repository.LocationRepository;
 import com.example.demo.repository.PartyHouseRepository;
-
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 @SpringBootApplication
 public class PartyHouseDemoApplication {
