@@ -25,9 +25,9 @@ public class CategoryController {
 		if (CategoryID != null) {
 			return categoryRepository.findByCategoryId(CategoryID);
 		} else if (CategoryChinese != null) {
-			return categoryRepository.findByCategoryChinese(CategoryChinese);
+			return categoryRepository.findByCategoryChineseContaining(CategoryChinese);
 		} else if (CategoryEnglish != null) {
-			return categoryRepository.findByCategoryEnglish(CategoryEnglish);
+			return categoryRepository.findByCategoryEnglishContaining(CategoryEnglish);
 		}
 		
 		return (List<Category>) categoryRepository.findAll();

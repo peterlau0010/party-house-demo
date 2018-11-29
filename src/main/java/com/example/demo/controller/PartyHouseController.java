@@ -14,6 +14,7 @@ import com.example.demo.repository.PartyHouseRepository;
 @RestController
 public class PartyHouseController {
 
+	
 	@Autowired
 	private PartyHouseRepository partyHouseRepository;
 
@@ -23,14 +24,20 @@ public class PartyHouseController {
 			@RequestParam(value = "PartyHouseNameEnglish", required = false) String partyHouseNameEnglish,
 			@RequestParam(value = "LocationID", required = false) Long locationID) {
 
+		List<PartyHouse> result = null;
+		
 		if (partyHouseNameChinese != null) {
-			return partyHouseRepository.findByPartyHouseNameChineseContaining(partyHouseNameChinese);
+			result = partyHouseRepository.findByPartyHouseNameChineseContaining(partyHouseNameChinese);
 		} else if (partyHouseNameEnglish != null) {
-			return partyHouseRepository.findByPartyHouseNameEnglishContaining(partyHouseNameEnglish);
+			result = partyHouseRepository.findByPartyHouseNameEnglishContaining(partyHouseNameEnglish);
 		} else if (locationID != null) {
-			return partyHouseRepository.findByLocation_locationId(locationID);
+			result = partyHouseRepository.findByLocation_locationId(locationID);
+		}else {
+			result = (List<PartyHouse>) partyHouseRepository.findAll();
 		}
-		return (List<PartyHouse>) partyHouseRepository.findAll();
+		
+		
+		return result;
 
 	}
 }

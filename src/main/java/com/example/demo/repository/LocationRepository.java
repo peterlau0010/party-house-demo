@@ -10,7 +10,7 @@ public interface LocationRepository extends CrudRepository<Location, Long> {
 
     List<Location> findByLocationId(Long LocationID);
     
-    List<Location> findByLocationChinese(String LocationChinese);
+    List<Location> findByLocationChineseContaining(String LocationChinese);
     
-    List<Location> findByLocationEnglish(String LocationEnglish);
+    List<Location> findByLocationEnglishContaining(String LocationEnglish);
 }

@@ -37,27 +37,13 @@ public class PartyHouse {
 	@JoinColumn(name = "location_id", nullable = false, referencedColumnName = "locationId")
 	private Location location;
 
+	
+
 	public Long getPartyHouseId() {
 		return partyHouseId;
 	}
 
 	public void setPartyHouseId(Long partyHouseId) {
-		this.partyHouseId = partyHouseId;
-	}
-
-	public List<Category> getCategory() {
-		return category;
-	}
-
-	public void setCategory(List<Category> category) {
-		this.category = category;
-	}
-
-	public Long getPartyHouseID() {
-		return partyHouseId;
-	}
-
-	public void setPartyHouseID(Long partyHouseId) {
 		this.partyHouseId = partyHouseId;
 	}
 
@@ -99,6 +85,14 @@ public class PartyHouse {
 
 	public void setOpeningHour(String openingHour) {
 		this.openingHour = openingHour;
+	}
+
+	public List<Category> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
 	}
 
 	public Location getLocation() {

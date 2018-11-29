@@ -25,9 +25,9 @@ public class LocationController {
 		if (LocationID != null) {
 			return locationRepository.findByLocationId(LocationID);
 		} else if (LocationChinese != null) {
-			return locationRepository.findByLocationChinese(LocationChinese);
+			return locationRepository.findByLocationChineseContaining(LocationChinese);
 		} else if (LocationEnglish != null) {
-			return locationRepository.findByLocationEnglish(LocationEnglish);
+			return locationRepository.findByLocationEnglishContaining(LocationEnglish);
 		}
 
 		return (List<Location>) locationRepository.findAll();
